@@ -2,7 +2,7 @@ package util
 
 import (
 	jwt"github.com/dgrijalva/jwt-go"
-	"go-gin/pkg/setting"
+	"FirstGin/pkg/setting"
 	"time"
 )
 
