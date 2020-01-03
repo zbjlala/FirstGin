@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"FirstGin/pkg/setting"
 	"FirstGin/routers"
+	"fmt"
 	"net/http"
+	_ "net/http"
 )
 
 func main() {
