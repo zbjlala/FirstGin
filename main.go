@@ -1,12 +1,23 @@
 package main
 
 import (
+	"FirstGin/models"
+	"FirstGin/pkg/logging"
 	"FirstGin/pkg/setting"
 	"FirstGin/routers"
 	"fmt"
+	_ "fmt"
+	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	_ "net/http"
 )
+
+func init(){
+	setting.Setup()
+	models.Setup()
+	logging.Setup()
+}
 
 func main() {
 	//router := gin.Default()
@@ -31,16 +42,20 @@ func main() {
 	//if err != nil{
 	//	log.Printf("Server err: %v", err)
 	//}
-
-	router := routers.InitRouter()
+	gin.SetMode(setting.ServerSetting.RunMode)
+	routersInit := routers.InitRouter()
+	readTimeout := setting.ServerSetting.ReadTimeout
+	writeTimeout := setting.ServerSetting.WriteTimeout
+	endPoint := fmt.Sprintf(":%d", setting.ServerSetting.HttpPort)
+	maxHeaderBytes := 1 << 20
 
 	s := &http.Server{
-		Addr:	fmt.Sprintf(":%d", setting.HTTPPort),
-		Handler:	router,
-		ReadTimeout:	setting.ReadTimeout,
-		WriteTimeout:	setting.WriteTimeout,
-		MaxHeaderBytes:	1 << 20,
+		Addr:	endPoint,
+		Handler:	routersInit,
+		ReadTimeout: readTimeout,
+		WriteTimeout:	writeTimeout,
+		MaxHeaderBytes:	maxHeaderBytes,
 	}
-
+	log.Printf("[info] start http server listening %s", endPoint)
 	s.ListenAndServe()
 }

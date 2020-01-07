@@ -2,8 +2,8 @@ package main
 
 import (
 	"FirstGin/models"
-	"log"
 	"github.com/robfig/cron"
+	"log"
 	"time"
 )
 
