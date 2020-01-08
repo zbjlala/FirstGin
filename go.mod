@@ -13,6 +13,7 @@ require (
 	github.com/go-openapi/spec v0.19.5 // indirect
 	github.com/go-openapi/swag v0.19.6 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
+	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/jinzhu/gorm v1.9.11
 	github.com/json-iterator/go v1.1.9 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
@@ -36,6 +37,8 @@ replace (
 	FirstGin/docs => ~/go-application/FirstGin/docs v0.0.1
 	FirstGin/middleware => ~/go-application/FirstGin/middleware v0.0.1
 	FirstGin/models => ~/go-application/gFirstGin/models v0.0.1
+	FirstGin/pkg/ => ~/go-application/FirstGin/pkg/setting v0.0.1
+	FirstGin/pkg/app => ~/go-application/FirstGin/pkg/app v0.0.1
 	FirstGin/pkg/setting => ~/go-application/FirstGin/pkg/setting v0.0.1
 	FirstGin/routers => ~/go-application/FirstGin/routers v0.0.1
 	github.com/Unknwon/com => github.com/unknwon/com v0.0.0-20190804042917-757f69c95f3e
