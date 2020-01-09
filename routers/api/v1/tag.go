@@ -3,6 +3,8 @@ package v1
 import (
 	"FirstGin/pkg/app"
 	"FirstGin/pkg/e"
+	"FirstGin/pkg/export"
+	"FirstGin/pkg/logging"
 	"FirstGin/pkg/setting"
 	"FirstGin/pkg/util"
 	"FirstGin/service/tag_service"
@@ -187,6 +189,65 @@ func DeleteTag(c *gin.Context) {
 
 	if err := tagService.Delete(); err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_TAG_FAIL, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
+
+// @Summary Export article tag
+// @Produce  json
+// @Param name body string false "Name"
+// @Param state body int false "State"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/tags/export [post]
+func ExportTag(c *gin.Context){
+	appG := app.Gin{C:c}
+	name := c.PostForm("name")
+	state := -1
+	if arg := c.PostForm("state"); arg != ""{
+		state = com.StrTo(arg).MustInt()
+	}
+
+	tagService := tag_service.Tag{
+		Name: name,
+		State: state,
+	}
+
+	filename, err := tagService.Export()
+	if err != nil {
+		appG.Response(http.StatusOK, e.ERROR_EXPORT_TAG_FAIL, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
+		"export_url": export.GetExcelFullUrl(filename),
+		"export_save_url": export.GetExcelPath() + filename,
+	})
+}
+
+// @Summary Import article tag
+// @Produce  json
+// @Param file body file true "Excel File"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/tags/import [post]
+func ImportTag(c *gin.Context){
+	appG := app.Gin{C:c}
+
+	file, _, err := c.Request.FormFile("file")
+	if err != nil{
+		logging.Warn(err)
+		appG.Response(http.StatusOK, e.ERROR, nil)
+		return
+	}
+
+	tagService := tag_service.Tag{}
+	err = tagService.Import(file)
+	if err != nil {
+		logging.Warn(err)
+		appG.Response(http.StatusOK, e.ERROR_IMPORT_TAG_FAIL, nil)
 		return
 	}
 

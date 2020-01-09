@@ -2,6 +2,7 @@ package routers
 
 import (
 	"FirstGin/middleware/jwt"
+	"FirstGin/pkg/export"
 	"FirstGin/pkg/setting"
 	"FirstGin/pkg/upload"
 	"FirstGin/routers/api"
@@ -26,6 +27,11 @@ func InitRouter() *gin.Engine{
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/upload", api.UploadImage)
 	r.StaticFS("/upload/images", http.Dir(upload.GetImageFullPath()))
+	//导出标签
+	r.POST("/tags/export", v1.ExportTag)
+	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
+	//导入标签
+	r.POST("/tags/import", v1.ImportTag)
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())

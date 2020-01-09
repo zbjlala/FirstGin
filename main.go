@@ -2,6 +2,7 @@ package main
 
 import (
 	"FirstGin/models"
+	"FirstGin/pkg/gredis"
 	"FirstGin/pkg/logging"
 	"FirstGin/pkg/setting"
 	"FirstGin/routers"
@@ -17,6 +18,7 @@ func init(){
 	setting.Setup()
 	models.Setup()
 	logging.Setup()
+	gredis.Setup()
 }
 
 func main() {
