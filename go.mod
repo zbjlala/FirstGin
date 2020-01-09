@@ -7,6 +7,7 @@ require (
 	github.com/Unknwon/com v0.0.0-00010101000000-000000000000
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/astaxie/beego v1.12.0
+	github.com/boombuler/barcode v1.0.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-ini/ini v1.51.1

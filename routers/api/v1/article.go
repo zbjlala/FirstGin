@@ -3,12 +3,14 @@ package v1
 import (
 	"FirstGin/pkg/app"
 	"FirstGin/pkg/e"
+	"FirstGin/pkg/qrcode"
 	"FirstGin/pkg/setting"
 	"FirstGin/pkg/util"
 	"FirstGin/service/article_service"
 	"FirstGin/service/tag_service"
 	"github.com/Unknwon/com"
 	"github.com/astaxie/beego/validation"
+	"github.com/boombuler/barcode/qr"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -276,6 +278,22 @@ func DeleteArticle(c *gin.Context) {
 	err = articleService.Delete()
 	if err != nil {
 		appG.Response(http.StatusInternalServerError, e.ERROR_DELETE_ARTICLE_FAIL, nil)
+		return
+	}
+
+	appG.Response(http.StatusOK, e.SUCCESS, nil)
+}
+
+const(
+	QRCODE_URL = "https://github.com/EDDYCJY/blog#gin%E7%B3%BB%E5%88%97%E7%9B%AE%E5%BD%95"
+)
+func GenerateArticlePoster(c *gin.Context){
+	appG := app.Gin{C:c}
+	qrc := qrcode.NewQrCode(QRCODE_URL, 300, 300, qr.M, qr.Auto)
+	path := qrcode.GetQrCodeFullPath()
+	_, _, err := qrc.Encode(path)
+	if err != nil {
+		appG.Response(http.StatusOK, e.ERROR, nil)
 		return
 	}
 

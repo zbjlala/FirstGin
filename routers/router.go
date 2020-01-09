@@ -32,6 +32,8 @@ func InitRouter() *gin.Engine{
 	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 	//导入标签
 	r.POST("/tags/import", v1.ImportTag)
+	//生成文章海报
+	r.POST("/articles/poster/generate", v1.GenerateArticlePoster)
 
 	apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
