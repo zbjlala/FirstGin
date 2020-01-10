@@ -3,6 +3,7 @@ package routers
 import (
 	"FirstGin/middleware/jwt"
 	"FirstGin/pkg/export"
+	"FirstGin/pkg/qrcode"
 	"FirstGin/pkg/setting"
 	"FirstGin/pkg/upload"
 	"FirstGin/routers/api"
@@ -32,6 +33,9 @@ func InitRouter() *gin.Engine{
 	r.StaticFS("/export", http.Dir(export.GetExcelFullPath()))
 	//导入标签
 	r.POST("/tags/import", v1.ImportTag)
+	//生成文章海报
+	//r.POST("/articles/poster/generate", v1.GenerateArticlePoster)
+	r.StaticFS("/qrcode", http.Dir(qrcode.GetQrCodeFullPath()))
 	//生成文章海报
 	r.POST("/articles/poster/generate", v1.GenerateArticlePoster)
 
