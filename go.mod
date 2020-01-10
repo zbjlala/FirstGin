@@ -15,6 +15,7 @@ require (
 	github.com/go-openapi/spec v0.19.5 // indirect
 	github.com/go-openapi/swag v0.19.6 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
+	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/jinzhu/gorm v1.9.11
 	github.com/json-iterator/go v1.1.9 // indirect
@@ -27,6 +28,7 @@ require (
 	github.com/swaggo/swag v1.6.3
 	github.com/tealeg/xlsx v1.0.5
 	github.com/unknwon/com v1.0.1 // indirect
+	golang.org/x/image v0.0.0-20191214001246-9130b4cfad52 // indirect
 	golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553 // indirect
 	golang.org/x/sys v0.0.0-20191228213918-04cbcbbfeed8 // indirect
 	golang.org/x/tools v0.0.0-20191230220329-2aa90c603ae3 // indirect
